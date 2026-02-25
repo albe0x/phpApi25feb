@@ -24,7 +24,7 @@ class AlunniController
 
   public function create(Request $request, Response $response, $args){
     $mysqli_connection = new MySQLi('my_mariadb', 'root', 'ciccio', 'scuola');
-    $postData = $request->getBody();
+    $postData = $request->getParsedBody();
     $result = $mysqli_connection->query("INSERT INTO alunni(nome, cognome) VALUES ('".$postData['nome']."', '". $postData['cognome']."')");
 
     $response->getBody()->write(json_encode("ok"));
@@ -33,7 +33,7 @@ class AlunniController
 
   public function update(Request $request, Response $response, $args){
     $mysqli_connection = new MySQLi('my_mariadb', 'root', 'ciccio', 'scuola');
-    $postData = $request->getBody();
+    $postData = $request->getParsedBody();
     $id = $args["id"];
     $result = $mysqli_connection->query("UPDATE alunni SET nome = '".$postData['nome']."', cognome = '". $postData['cognome']."' WHERE id = ".$id."");
 
